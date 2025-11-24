@@ -1,103 +1,74 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import Link from 'next/link'
+import { useUser, UserButton } from '@clerk/nextjs'
+
+export default function HomePage() {
+  const { isSignedIn } = useUser()
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="min-h-screen bg-gradient-to-b from-white to-slate-50 text-slate-900">
+      <section className="container mx-auto px-6 py-20">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">BuildMyAiAgent</h1>
+          <p className="text-lg sm:text-xl text-slate-600 mb-8">
+            Create, test, and deploy custom AI agents with an intuitive visual builder.
+            Connect APIs, design workflows, and iterate quickly — no boilerplate required.
+          </p>
+          {isSignedIn ? (
+            <div className="flex justify-center gap-4 items-center">
+              <UserButton afterSignOutUrl="/" />
+              <Link href="/dashboard" className="inline-block rounded-md bg-slate-900 text-white px-6 py-3 font-medium hover:opacity-95">
+                Go to Dashboard
+              </Link>
+            </div>
+          ) : (
+            <div className="flex justify-center gap-4">
+              <Link href="/sign-up" className="inline-block rounded-md bg-slate-900 text-white px-6 py-3 font-medium hover:opacity-95">
+                Sign up
+              </Link>
+              <Link href="/sign-in" className="inline-block rounded-md border border-slate-200 px-6 py-3 text-slate-900 hover:bg-slate-100">
+                Log in
+              </Link>
+            </div>
+          )}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      <section className="bg-white py-12">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto grid gap-8 sm:grid-cols-3">
+            <div className="p-6 border rounded-lg">
+              <h3 className="font-semibold mb-2">Visual Workflow Editor</h3>
+              <p className="text-sm text-slate-600">Drag, connect, and configure nodes to design agent behavior visually.</p>
+            </div>
+            <div className="p-6 border rounded-lg">
+              <h3 className="font-semibold mb-2">Integrations</h3>
+              <p className="text-sm text-slate-600">Call external APIs, store results, and orchestrate multi-step tasks.</p>
+            </div>
+            <div className="p-6 border rounded-lg">
+              <h3 className="font-semibold mb-2">Preview & Test</h3>
+              <p className="text-sm text-slate-600">Run interactive previews to validate agent flows and iterate faster.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="container mx-auto px-6 py-12">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl font-semibold mb-4">How it works</h2>
+          <ol className="text-left list-decimal list-inside space-y-3 text-slate-600">
+            <li>Design your agent using the visual editor.</li>
+            <li>Configure API calls, conditions, and actions with node settings.</li>
+            <li>Preview, test, and deploy your agent to start automating tasks.</li>
+          </ol>
+        </div>
+      </section>
+
+      <footer className="border-t bg-slate-50 py-8">
+        <div className="container mx-auto px-6 flex flex-col sm:flex-row items-center justify-between">
+          <div className="text-sm text-slate-600">© {new Date().getFullYear()} BuildMyAiAgent</div>
+        </div>
       </footer>
-    </div>
-  );
+    </main>
+  )
 }
