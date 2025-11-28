@@ -22,7 +22,7 @@ export default function PublicAgentPage() {
         const result = await convex.query(api.agent.GetAgentById, {
           agentId: agentId as string,
         });
-        
+
         if (!result) {
           setAgentDetail(null);
           return;
@@ -41,7 +41,7 @@ export default function PublicAgentPage() {
         setLoading(false);
       }
     };
-    
+
     loadAgent();
   }, [convex, agentId]);
 
@@ -62,7 +62,7 @@ export default function PublicAgentPage() {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Agent Not Found</h1>
           <p className="text-gray-600 mb-4">
-            This agent doesn't exist or hasn't been published yet.
+            This agent doesn&apos;t exist or hasn&apos;t been published yet.
           </p>
           <Link href="/dashboard">
             <Button>Go to Dashboard</Button>
@@ -94,7 +94,7 @@ export default function PublicAgentPage() {
         {agentDetail.agentToolConfig ? (
           <div className="bg-white rounded-lg shadow-sm border">
             <ChatUi
-              GenerateAgentToolConfig={() => {}}
+              GenerateAgentToolConfig={() => { }}
               loading={false}
               agentDetail={agentDetail}
             />

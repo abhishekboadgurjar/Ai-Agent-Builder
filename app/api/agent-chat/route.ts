@@ -149,7 +149,7 @@ async function executeAgentWorkflow(
   }
 
   let response: any;
-  let toolCalls: any[] = [];
+  const toolCalls: any[] = [];
 
   // Make initial API call
   if (openAiKey) {
